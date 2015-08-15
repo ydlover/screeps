@@ -70,7 +70,7 @@ module.exports = function ()
 			// TODO: UPDATE THIS! This will no longer work, needs to be extracted and rewritten
 			//if spawnpoint has less than WORKER_THRESHOLD_MIN and there are builders around, then assign them to this spawn
 			
-			if (sWorkerCount < WORKER_THRESHOLD_MIN && jobManager.countUnitsWithJob('build', '*', spawn.room.name))
+			if (workerCount < WORKER_THRESHOLD_MIN && jobManager.countUnitsWithJob('build', '*', spawn.room.name))
 			{
 				var workers = spawn.room.find(Game.MY_CREEPS);
 				for (var y in workers)
