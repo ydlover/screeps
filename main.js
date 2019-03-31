@@ -1,8 +1,9 @@
 var jobManager = require('jobManager')();
 var spawnManager = require('spawnManager')();
+var utils = require('utils')();
 
+utils.logInit();
 console.log("------ new tick ------");
-
 //assign jobs
 jobManager.assignJobs();
 
