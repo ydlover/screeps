@@ -34,7 +34,7 @@ module.exports = function ()
 		var spawn = Game.spawns[creep.memory.spawn];
 		if (!spawn)
 		{
-			spawn = creep.pos.findNearest(Game.MY_SPAWNS);
+			spawn = creep.pos.findNearest(FIND_MY_SPAWNS);
 		}
 
 		// confirm that collection assignment is cleared

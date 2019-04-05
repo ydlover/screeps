@@ -17,7 +17,7 @@ module.exports = function ()
 		}
 
 		//continue if no nearby hostiles
-		var neartarget = creep.pos.findNearest(Game.CONSTRUCTION_SITES);
+		var neartarget = creep.pos.findNearest(FIND_CONSTRUCTION_SITES);
 
 		if (creep.energy === 0)
 		{
@@ -33,7 +33,7 @@ module.exports = function ()
 			//this isn't null protected
 			var mySpawn = Game.spawns[creep.memory.spawn];
 			var spawnPath = creep.pos.findPathTo(mySpawn);
-			var nearSource = creep.pos.findNearest(Game.SOURCES);
+			var nearSource = creep.pos.findNearest(FIND_SOURCES);
 			var sourcePath = creep.pos.findPathTo(nearSource);
 
 			if (spawnPath.length <= sourcePath.length && mySpawn.energy > 100)

@@ -75,7 +75,7 @@ module.exports = function ()
 
 			if (jobManager.creepHasMeans(creep, C.JOB_BUILD))
 			{
-				if (creep.pos.findNearest(Game.CONSTRUCTION_SITES))
+				if (creep.pos.findNearest(FIND_CONSTRUCTION_SITES))
 				{
 					creep.memory.job = C.JOB_BUILD;
 				}

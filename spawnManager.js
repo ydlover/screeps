@@ -19,13 +19,13 @@ module.exports = function ()
 
 	// game costs for spawning parts
 	spawnManager.costs = {};
-	spawnManager.costs[Game.MOVE] = 50;
-	spawnManager.costs[Game.WORK] = 20;
-	spawnManager.costs[Game.CARRY] = 50;
-	spawnManager.costs[Game.ATTACK] = 100;
-	spawnManager.costs[Game.RANGED_ATTACK] = 150;
-	spawnManager.costs[Game.HEAL] = 200;
-	spawnManager.costs[Game.TOUGH] = 5;
+	spawnManager.costs[MOVE] = 50;
+	spawnManager.costs[WORK] = 20;
+	spawnManager.costs[CARRY] = 50;
+	spawnManager.costs[ATTACK] = 100;
+	spawnManager.costs[RANGED_ATTACK] = 150;
+	spawnManager.costs[HEAL] = 200;
+	spawnManager.costs[TOUGH] = 5;
 
 	//declare needs
 	spawnManager.needs = [7];
@@ -69,10 +69,10 @@ module.exports = function ()
 			//-----------------------------------------------------------------
 			// TODO: UPDATE THIS! This will no longer work, needs to be extracted and rewritten
 			//if spawnpoint has less than WORKER_THRESHOLD_MIN and there are builders around, then assign them to this spawn
-			
-			if (workerCount < WORKER_THRESHOLD_MIN && jobManager.countUnitsWithJob('build', '*', spawn.room.name))
+			countJob=jobManager.countUnitsWithJob('build', '*', spawn.room.name)
+			if (workerCount < WORKER_THRESHOLD_MIN && countJob)
 			{
-				var workers = spawn.room.find(Game.MY_CREEPS);
+				var workers = spawn.room.find(FIND_MY_CREEPS);
 				for (var y in workers)
 				{
 					var worker = workers[y];
@@ -139,8 +139,8 @@ module.exports = function ()
 				var m = units[name][spawnLevel].memory;
 				m.spawn = spawn.name;
 				//call creating the creep
-				console.log('++Creating level ' + spawnLevel + ' creep ' + name + ' : ' + creepName);
-				spawn.createCreep(parts, creepName, m);
+				var ret = spawn.spawnCreep(parts, creepName, m);
+				console.log('++Creating level ' + spawnLevel + ' creep ' + name + ' : ' + creepName+",parts="+parts+",ret="+ret);
 			}
 		}
 		else
@@ -226,7 +226,7 @@ module.exports = function ()
 		var sRangedGuardCount = jobManager.countUnitWithMeans(C.JOB_RANGED_GUARD , spawn.name);
 		var sHealerCount = jobManager.countUnitWithMeans(C.JOB_HEAL , spawn.name);
 		var sWarriorCount = sGuardCount + sRangedGuardCount;
-		var sEnemyCount = spawn.room.find(Game.HOSTILE_CREEPS).length;
+		var sEnemyCount = spawn.room.find(FIND_HOSTILE_CREEPS).length;
 
 		console.log('=' + spawn.name + ' Unit Count - Worker: ' + sWorkerCount + ' Collector: ' + sCollectorCount + ' Guard: ' + sGuardCount + '/' + sRangedGuardCount + ' Healer: ' + sHealerCount);
 
@@ -342,7 +342,7 @@ module.exports = function ()
 		}
 
 		// make sure there is a spawn.memory.energyCollection record for all existing dropped energy pieces
-		var droppedEnergy = spawn.room.find(Game.DROPPED_ENERGY);
+		var droppedEnergy = spawn.room.find(FIND_DROPPED_ENERGY);
 		if (droppedEnergy && _.isArray(droppedEnergy))
 		{
 			// validate and update droppedEnergy vs energyCollection
@@ -406,7 +406,7 @@ module.exports = function ()
 			//assign collectors ----------------------------------------------------------------------------------------
 
 			// find collectors assigned to this spawn and not assigned to an energy drop and has energy capacity
-			var collectors = spawn.room.find(Game.MY_CREEPS , {
+			var collectors = spawn.room.find(FIND_MY_CREEPS , {
 				filter: function (c)
 				{
 					return c.memory.spawn == spawn.name && !c.memory.collect && c.energy < c.energyCapacity;

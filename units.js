@@ -3,7 +3,7 @@ module.exports =
 	"worker": {
 		"jobId": 4 ,
 		1: {
-			"parts": [Game.WORK, Game.WORK, Game.WORK, Game.WORK, Game.MOVE],
+			"parts": [WORK, WORK, WORK, WORK, MOVE],
 			"memory": {
 				"name": "worker",
 				"level": 1
@@ -13,7 +13,7 @@ module.exports =
 	"collector": {
 		"jobId": 2 ,
 		1: {
-			"parts": [Game.CARRY, Game.CARRY, Game.CARRY, Game.MOVE, Game.MOVE],
+			"parts": [CARRY, CARRY, CARRY, MOVE, MOVE],
 			"memory": {
 				"name": "collector" ,
 				"level": 1
@@ -23,7 +23,7 @@ module.exports =
 	"guard": {
 		"jobId": 3 ,
 		1: {
-			"parts": [Game.TOUGH, Game.ATTACK, Game.ATTACK, Game.ATTACK, Game.MOVE],
+			"parts": [TOUGH, ATTACK, ATTACK, ATTACK, MOVE],
 			"memory": {
 				"name": "guard",
 				"level": 1
@@ -33,7 +33,7 @@ module.exports =
 	"healer": {
 		"jobId": 5 ,
 		1: {
-			"parts": [Game.TOUGH, Game.HEAL, Game.HEAL, Game.HEAL, Game.MOVE],
+			"parts": [TOUGH, HEAL, HEAL, HEAL, MOVE],
 			"memory": {
 				"name": "healer",
 				"level": 1
@@ -43,7 +43,7 @@ module.exports =
 	"archer": {
 		"jobId": 6 ,
 		1: {
-			"parts": [Game.RANGED_ATTACK, Game.RANGED_ATTACK, Game.RANGED_ATTACK, Game.RANGED_ATTACK, Game.MOVE],
+			"parts": [RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE],
 			"memory": {
 				"name": "archer",
 				"level": 1

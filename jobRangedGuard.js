@@ -8,10 +8,10 @@ module.exports = function()
 
 	jobRangedGuard.work = function (creep)
 	{
-		var targets = creep.room.find(Game.HOSTILE_CREEPS);
+		var targets = creep.room.find(FIND_HOSTILE_CREEPS);
 
 		if (targets.length) {
-			var target = creep.pos.findNearest(Game.HOSTILE_CREEPS);
+			var target = creep.pos.findNearest(FIND_HOSTILE_CREEPS);
 
 			if (target)
 			{

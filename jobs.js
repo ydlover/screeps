@@ -6,35 +6,35 @@ module.exports =
 	} ,
 	1: {
 		"name": "build" ,
-		"means": [Game.WORK, Game.CARRY, Game.MOVE]
+		"means": [WORK, CARRY, MOVE]
 	},
 	2: {
 		"name": "collect" ,
-		"means": [Game.CARRY, Game.MOVE]
+		"means": [CARRY, MOVE]
 	},
 	3: {
 		"name": "guard" ,
-		"means": [Game.ATTACK, Game.MOVE]
+		"means": [ATTACK, MOVE]
 	},
 	4: {
 		"name": "guard" ,
-		"means": [Game.WORK, Game.MOVE]
+		"means": [WORK, MOVE]
 	},
 	5: {
 		"name": "heal" ,
-		"means": [Game.HEAL, Game.MOVE]
+		"means": [HEAL, MOVE]
 	},
 	6: {
 		"name": "rangedGuard" ,
-		"means": [Game.RANGED_ATTACK, Game.MOVE]
+		"means": [RANGED_ATTACK, MOVE]
 	},
 // not implemented
 	7: {
 		"name": "deliver" ,
-		"means": [Game.CARRY, Game.MOVE]
+		"means": [CARRY, MOVE]
 	},
 	8: {
 		"name": "turret" ,
-		"means": [Game.RANGED_ATTACK]
+		"means": [RANGED_ATTACK]
 	}
 };

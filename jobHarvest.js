@@ -19,7 +19,7 @@ module.exports = function ()
 		//continue if no nearby hostiles
 		if (creep.energyCapacity === 0 || creep.energy < creep.energyCapacity)
 		{
-			var sources = Game.spawns[creep.memory.spawn].pos.findNearest(Game.SOURCES, {
+			var sources = Game.spawns[creep.memory.spawn].pos.findNearest(FIND_SOURCES, {
 				filter: function (t)
 				{
 					return t.energy > 0
@@ -30,7 +30,7 @@ module.exports = function ()
 		}
 		else
 		{
-			var target = creep.pos.findNearest(Game.MY_SPAWNS);
+			var target = creep.pos.findNearest(FIND_MY_SPAWNS);
 
 			creep.moveTo(target);
 			creep.transferEnergy(target);

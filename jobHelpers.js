@@ -30,10 +30,10 @@ module.exports = function ()
 		{
 			range = 3;
 		}
-		var inRange = creep.pos.findInRange(Game.HOSTILE_CREEPS, range);
+		var inRange = creep.pos.findInRange(FIND_HOSTILE_CREEPS, range);
 		if (inRange && inRange.length)
 		{
-			var target = creep.pos.findNearest(Game.HOSTILE_CREEPS);
+			var target = creep.pos.findNearest(FIND_HOSTILE_CREEPS);
 			if (target)
 			{
 				jobHelpers.moveAwayFromTarget(creep, target);
@@ -51,7 +51,7 @@ module.exports = function ()
 
 	jobHelpers.rendevous = function (creep, range)
 	{
-		var flags = creep.room.find(Game.FLAGS, {'name': 'Flag1'});
+		var flags = creep.room.find(FIND_FLAGS, {'name': 'Flag1'});
 
 		if (creep.memory.rendevous)
 		{
