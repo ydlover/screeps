@@ -17,7 +17,7 @@ module.exports = function ()
 		}
 
 		//Find my creeps that are hurt. If they're hurt, heal them.
-		var healTarget = creep.pos.findNearest(FIND_MY_CREEPS, {
+		var healTarget = creep.pos.findClosestByPath(FIND_MY_CREEPS, {
 			filter: function (t)
 			{
 				return t != creep && t.hits < t.hitsMax
@@ -36,7 +36,7 @@ module.exports = function ()
 			//if there are hostile targets stay near the action
 			if (targets.length)
 			{
-				var target = creep.pos.findNearest(FIND_HOSTILE_CREEPS);
+				var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
 
 				if (target)
 				{

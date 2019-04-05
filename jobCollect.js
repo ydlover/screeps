@@ -13,8 +13,10 @@ module.exports = function ()
 		//avoid hostiles
 		if (jobHelpers.avoidHostile(creep , 5))
 		{
+			console.log('creep['+creep.name+'] avoidHostile');
 			return;
 		}
+		console.log('creep['+creep.name+'] collect:'+creep.memory.collect);
 
 		// if collector is assigned something to collect handle the collection
 		if (creep.memory.collect)
@@ -34,7 +36,7 @@ module.exports = function ()
 		var spawn = Game.spawns[creep.memory.spawn];
 		if (!spawn)
 		{
-			spawn = creep.pos.findNearest(FIND_MY_SPAWNS);
+			spawn = creep.pos.findClosestByPath(FIND_MY_SPAWNS);
 		}
 
 		// confirm that collection assignment is cleared

@@ -24,6 +24,25 @@ module.exports = function ()
 		for (var i in Game.creeps)
 		{
 			var creep = Game.creeps[i];
+
+			if(creep.room.memory.isUpdateController && creep.carry.energy > 0)
+			{
+				if(creep.room.controller) {
+					var ret = creep.upgradeController(creep.room.controller);
+					if(ret === ERR_NOT_IN_RANGE){
+						console.log(creep.name+" ->controller not in range,move To:"+creep.room.controller);
+		                creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: 'blue'}});
+		                continue;
+		            }
+					else if(ret != OK)
+					{
+						console.log(creep.name+" update fail:"+ret);
+					}
+				}
+				
+				continue;
+			}
+			console.log('creep['+creep.name+'] action job:'+creep.memory.job);
 			switch (creep.memory.job)
 			{
 				case C.JOB_BUILD:
@@ -60,7 +79,20 @@ module.exports = function ()
 
 			if (jobManager.creepHasMeans(creep, C.JOB_COLLECT))
 			{
-				creep.memory.job = C.JOB_COLLECT;
+				var spawns = creep.pos.findClosestByPath(FIND_MY_SPAWNS);
+				var isNeedCollect = false;
+				for(var index in spawns)
+				{
+					if(spawns.memory.energyCollection.length>0)
+					{
+						isNeedCollect = true;
+						break;
+					}
+				}
+				if (isNeedCollect)
+				{
+					creep.memory.job = C.JOB_COLLECT;
+				}
 			}
 
 			if (jobManager.creepHasMeans(creep, C.JOB_GUARD))
@@ -75,7 +107,7 @@ module.exports = function ()
 
 			if (jobManager.creepHasMeans(creep, C.JOB_BUILD))
 			{
-				if (creep.pos.findNearest(FIND_CONSTRUCTION_SITES))
+				if (creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES))
 				{
 					creep.memory.job = C.JOB_BUILD;
 				}
@@ -84,6 +116,8 @@ module.exports = function ()
 			{
 				creep.memory.job = C.JOB_HEAL;
 			}
+			
+			console.log('creep['+creep.name+'] assign job:'+creep.memory.job);
 		}
 	};
 
@@ -95,11 +129,8 @@ module.exports = function ()
 			creepParts[x] = creep.body[x].type;
 		}
 
-		//console.log('mean: ' + mean);
-		//console.log('job means: ' + jobs[mean].means);
-		//console.log('creep parts: ' + creepParts);
 		var result = _.difference(jobs[mean].means, creepParts);
-		//console.log('result: ' + result);
+		console.log('job('+creep.name+') means['+mean+']: ['+jobs[mean].means+']-['+creepParts+']->['+result+']');
 
 		return !result.length;
 	};

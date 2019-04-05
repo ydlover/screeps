@@ -14,7 +14,7 @@ module.exports = function ()
 
 		if (targets.length)
 		{
-			var target = creep.pos.findNearest(FIND_HOSTILE_CREEPS);
+			var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
 			if (target)
 			{
 				creep.moveTo(target);

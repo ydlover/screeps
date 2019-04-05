@@ -3,7 +3,7 @@ module.exports =
 	"worker": {
 		"jobId": 4 ,
 		1: {
-			"parts": [WORK, WORK, WORK, WORK, MOVE],
+			"parts": [WORK, WORK, CARRY, MOVE],
 			"memory": {
 				"name": "worker",
 				"level": 1
@@ -13,7 +13,7 @@ module.exports =
 	"collector": {
 		"jobId": 2 ,
 		1: {
-			"parts": [CARRY, CARRY, CARRY, MOVE, MOVE],
+			"parts": [WORK, CARRY, MOVE],
 			"memory": {
 				"name": "collector" ,
 				"level": 1

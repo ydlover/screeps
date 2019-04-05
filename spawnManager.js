@@ -19,13 +19,13 @@ module.exports = function ()
 
 	// game costs for spawning parts
 	spawnManager.costs = {};
-	spawnManager.costs[MOVE] = 50;
-	spawnManager.costs[WORK] = 20;
-	spawnManager.costs[CARRY] = 50;
-	spawnManager.costs[ATTACK] = 100;
-	spawnManager.costs[RANGED_ATTACK] = 150;
-	spawnManager.costs[HEAL] = 200;
-	spawnManager.costs[TOUGH] = 5;
+	spawnManager.costs[MOVE] = BODYPART_COST[MOVE];
+	spawnManager.costs[WORK] = BODYPART_COST[WORK];
+	spawnManager.costs[CARRY] = BODYPART_COST[CARRY];
+	spawnManager.costs[ATTACK] = BODYPART_COST[ATTACK];
+	spawnManager.costs[RANGED_ATTACK] = BODYPART_COST[RANGED_ATTACK];
+	spawnManager.costs[HEAL] = BODYPART_COST[HEAL];
+	spawnManager.costs[TOUGH] = BODYPART_COST[TOUGH];
 
 	//declare needs
 	spawnManager.needs = [7];
@@ -87,7 +87,16 @@ module.exports = function ()
 
 			//-----------------------------------------------------------------
 			// sort and spawn spawn units - this should be called after all management functions
-			spawnManager.sortAndSpawn(spawn);
+			if(Game.creeps.length<8)
+			{
+				spawnManager.sortAndSpawn(spawn);
+				spawn.room.memory.isUpdateController = false;
+			}
+			else
+			{
+				spawn.room.memory.isUpdateController = true;
+				console.log("updating");
+			}
 
 		} // end looping over spawns
 	};
@@ -342,13 +351,16 @@ module.exports = function ()
 		}
 
 		// make sure there is a spawn.memory.energyCollection record for all existing dropped energy pieces
-		var droppedEnergy = spawn.room.find(FIND_DROPPED_ENERGY);
+		var droppedEnergy = spawn.room.find(FIND_DROPPED_RESOURCES);
+		console.log('manageCollection:'+droppedEnergy);
 		if (droppedEnergy && _.isArray(droppedEnergy))
 		{
+			
 			// validate and update droppedEnergy vs energyCollection
 			for (var x = 0; x < droppedEnergy.length; x++)
 			{
 				var de = droppedEnergy[x];
+				console.log('Collection target:'+de.pos);
 				var ei = _.findIndex(spawn.memory.energyCollection , function (e)
 				{
 					return e.id == de.id;

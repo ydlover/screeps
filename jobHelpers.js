@@ -33,7 +33,7 @@ module.exports = function ()
 		var inRange = creep.pos.findInRange(FIND_HOSTILE_CREEPS, range);
 		if (inRange && inRange.length)
 		{
-			var target = creep.pos.findNearest(FIND_HOSTILE_CREEPS);
+			var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
 			if (target)
 			{
 				jobHelpers.moveAwayFromTarget(creep, target);

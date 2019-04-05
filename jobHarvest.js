@@ -17,9 +17,9 @@ module.exports = function ()
 		}
 
 		//continue if no nearby hostiles
-		if (creep.energyCapacity === 0 || creep.energy < creep.energyCapacity)
+		if (creep.carryCapacity === 0 || creep.carry.energy < creep.carryCapacity)
 		{
-			var sources = Game.spawns[creep.memory.spawn].pos.findNearest(FIND_SOURCES, {
+			var sources = creep.pos.findClosestByPath(FIND_SOURCES, {
 				filter: function (t)
 				{
 					return t.energy > 0
@@ -27,13 +27,23 @@ module.exports = function ()
 			});
 			creep.moveTo(sources);
 			creep.harvest(sources);
+			console.log(creep.name+" harvest");
 		}
 		else
 		{
-			var target = creep.pos.findNearest(FIND_MY_SPAWNS);
-
-			creep.moveTo(target);
-			creep.transferEnergy(target);
+			var target = creep.pos.findClosestByPath(FIND_MY_SPAWNS);
+			console.log(creep.name+" withdraw:energy="+creep.carry.energy+",energyCapacity="+creep.carryCapacity+',target='+target);
+			var ret = creep.transfer(target, RESOURCE_ENERGY);
+			if(ret === ERR_NOT_IN_RANGE){
+				console.log(creep.name+" not in range,move To:"+target);
+                creep.moveTo(target, {visualizePathStyle: {stroke: 'blue'}});
+                return;
+            }
+			else if(ret != OK)
+			{
+				console.log(creep.name+" withdraw fail:"+ret);
+			}
+			
 		}
 	};
 	//-------------------------------------------------------------------------
