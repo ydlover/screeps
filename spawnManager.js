@@ -87,7 +87,7 @@ module.exports = function ()
 
 			//-----------------------------------------------------------------
 			// sort and spawn spawn units - this should be called after all management functions
-			if(Game.creeps.length<8)
+			if(Object.keys(Game.creeps).length<8)
 			{
 				spawnManager.sortAndSpawn(spawn);
 				spawn.room.memory.isUpdateController = false;
@@ -95,7 +95,6 @@ module.exports = function ()
 			else
 			{
 				spawn.room.memory.isUpdateController = true;
-				console.log("updating");
 			}
 
 		} // end looping over spawns

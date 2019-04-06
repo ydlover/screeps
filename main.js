@@ -12,3 +12,5 @@ spawnManager.spawn();
 
 //action jobs
 jobManager.actionJobs();
+
+utils.garbageCollection();

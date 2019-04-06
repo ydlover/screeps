@@ -34,5 +34,20 @@ module.exports = function () {
           log.apply(console, arguments)
         };
     };
+    utils.garbageCollection = function() {
+    	var counter = 0;
+    	for(var n in Memory.creeps) {
+    		var c = Game.creeps[n];
+    		if(!c) {
+    			delete Memory.creeps[n];
+    			counter++;
+    		}
+    	}
+    	if(counter>0)
+    	{
+    		console.log("garbageCollection:"+counter);
+    	}
+    }
+    
     return utils;
 };
